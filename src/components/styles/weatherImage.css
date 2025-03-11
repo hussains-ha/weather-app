@@ -1,0 +1,14 @@
+img {
+  width: 90px;
+  height: 90px;
+}
+
+.weather-image { 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.weather-image h3 { 
+    margin: 0 0 10px 0; 
+}

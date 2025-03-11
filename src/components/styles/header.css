@@ -1,0 +1,36 @@
+header {
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+header nav #right-nav {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  font-weight: 200;
+}
+
+#inner-nav {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+}
+
+#inner-nav ul {
+  display: flex;
+  flex-direction: row;
+}
+
+#inner-nav #right-nav li {
+  margin: 0 0 0 4.5em;
+}
+
+#main-logo {
+  font-family: "Bumbbled";
+  margin: 0;
+  font-weight: 200;
+}
+
+#header-logo {
+  font-family: "Bumbbled";
+}

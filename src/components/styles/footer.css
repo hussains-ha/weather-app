@@ -1,0 +1,14 @@
+#footer {
+  position: relative;
+  bottom: 0px; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 200;
+  display: block; 
+  margin: 50px 0px 10px 0px; 
+}
+
+#footer p {
+  margin: 0;
+  font-size: 1em;
+}

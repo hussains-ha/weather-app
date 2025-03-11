@@ -1,0 +1,60 @@
+.weather-stat {
+  background-color: #00000061;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.temp-range {
+  display: flex;
+  justify-content: center;
+}
+
+.temp-range p {
+  padding: 0 20px;
+}
+
+.icon {
+  font-size: 8rem;
+  margin: 0;
+  margin: 24px 0;
+}
+
+.icon-img  {
+  width: 150px;
+  height: 150px;
+  margin: 24px 0;
+  padding: 10px 0; 
+}
+
+.weather-stat h3 {
+  padding-top: 24px;
+}
+
+.weather-stat > p:last-child, .wind-speed { 
+    margin-bottom: 24px;
+}
+
+.wind-speed { 
+    display: flex; 
+    justify-content: center;
+}
+
+.wind-speed p:first-child { 
+    padding-right: 20px;
+}
+
+#sun h2{ 
+    font-size: 2.5em;
+}
+
+#sun p { 
+    margin: 24px 0 7px 0; 
+}
+
+.caption { 
+  font-size: 1em;
+  padding: 0; 
+  margin: 0;
+  position: relative;
+  bottom: 0px; 
+}
