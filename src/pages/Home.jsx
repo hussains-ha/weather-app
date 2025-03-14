@@ -1,14 +1,16 @@
 import "./styles/Home.css";
 import Stats from "../components/WeatherStats";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-function Home() {
+function Home(props) {
   const location = useLocation();
   const [weatherData, setWeatherData] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {}, [props.isSearchOpen]);
 
   useEffect(() => {
     if (!location.state) {
@@ -35,7 +37,9 @@ function Home() {
     return (
       <>
         <div className="site-content">
-          <h1>weather</h1>
+          <h1>
+            <a href="/">weather</a>
+          </h1>
           <h2>{location.state.data.location}</h2>
           {/* <div className="hour-forecast">
           <WeatherImage />
@@ -80,6 +84,8 @@ function Home() {
         </div>
       </>
     );
+  } else {
+    return <h2>Loading...</h2>;
   }
 }
 

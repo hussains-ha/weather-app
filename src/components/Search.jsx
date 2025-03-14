@@ -1,6 +1,6 @@
 import "./styles/search.css";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 const geocodeApiKey = import.meta.env.VITE_GEOCODING_API_KEY;
 
 function Search() {
@@ -15,12 +15,12 @@ function Search() {
       return;
     }
 
-    console.log("searching for location");
     fetch(
       `https://geocode.maps.co/search?q=${location}}&api_key=${geocodeApiKey}`
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log("data is received", data);
         navigate("/app", {
           state: {
             data: {

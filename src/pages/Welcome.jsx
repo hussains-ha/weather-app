@@ -5,7 +5,7 @@ function Welcome() {
     <>
       <div className="site-content">
         <h1>weather</h1>
-        <h2>Select A Location To Get Started</h2>
+        <h2>Enter A Location</h2>
         <Search />
       </div>
     </>
