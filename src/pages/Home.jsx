@@ -2,6 +2,7 @@ import "./styles/Home.css";
 import Stats from "../components/WeatherStats";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Search from "../components/Search";
 
 const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -9,8 +10,6 @@ function Home(props) {
   const location = useLocation();
   const [weatherData, setWeatherData] = useState({});
   const navigate = useNavigate();
-
-  useEffect(() => {}, [props.isSearchOpen]);
 
   useEffect(() => {
     if (!location.state) {
@@ -36,20 +35,22 @@ function Home(props) {
   if (weatherData.weather !== undefined) {
     return (
       <>
-        <div className="site-content">
+        <div className={`site-content ${props.isSearchOpen ? "blur" : ""}`}>
+          <div className={`overlay ${props.isSearchOpen ? "show" : ""}`}>
+            {props.isSearchOpen && (
+              <div className="overlay-content">
+                <h1>Location Search</h1>
+                <Search setSearchOpen={props.setSearchOpen} />
+                <button onClick={() => props.setSearchOpen(false)}>
+                  Close
+                </button>
+              </div>
+            )}
+          </div>
           <h1>
             <a href="/">weather</a>
           </h1>
           <h2>{location.state.data.location}</h2>
-          {/* <div className="hour-forecast">
-          <WeatherImage />
-          <WeatherImage />
-          <WeatherImage />
-          <WeatherImage />
-          <WeatherImage />
-          <WeatherImage />
-          <WeatherImage />
-        </div> */}
 
           <div className="weather-stats">
             <Stats
@@ -85,7 +86,12 @@ function Home(props) {
       </>
     );
   } else {
-    return <h2>Loading...</h2>;
+    return (
+      <>
+        <h2>Loading...</h2>
+        <p>If stuck loading, refresh or check internet connection</p>
+      </>
+    );
   }
 }
 

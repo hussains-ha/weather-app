@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const geocodeApiKey = import.meta.env.VITE_GEOCODING_API_KEY;
 
-function Search() {
+function Search(props) {
   const [location, setlocation] = useState("");
   const navigate = useNavigate();
 
@@ -30,6 +30,9 @@ function Search() {
             },
           },
         });
+        if (window.location.href.includes("/app")) {
+          props.setSearchOpen(false);
+        }
       });
   };
 
