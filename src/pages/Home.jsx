@@ -41,7 +41,11 @@ function Home(props) {
               <div className="overlay-content">
                 <h1>Location Search</h1>
                 <Search setSearchOpen={props.setSearchOpen} />
-                <button onClick={() => props.setSearchOpen(false)}>
+                <button
+                  onClick={() => {
+                    props.setSearchOpen(false);
+                  }}
+                >
                   Close
                 </button>
               </div>
