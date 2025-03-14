@@ -26,7 +26,7 @@ function Header(props) {
               </a>
             </li>
             <li>
-              <a href="#">Settings</a>
+              <a href="/wip">Settings</a>
             </li>
           </ul>
         </div>
