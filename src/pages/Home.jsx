@@ -35,10 +35,10 @@ function Home(props) {
   if (weatherData.weather !== undefined) {
     return (
       <>
-        <div className={`site-content ${props.isSearchOpen ? "blur" : ""}`}>
-          <div className={`overlay ${props.isSearchOpen ? "show" : ""}`}>
+        <div className={`site-content ${props.isSearchOpen ? "blur" : ""}`} onClick={props.isSearchOpen ? () => props.setSearchOpen(false) : null}>
+          <div className={`overlay ${props.isSearchOpen ? "show" : ""}`} >
             {props.isSearchOpen && (
-              <div className="overlay-content">
+              <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
                 <h1>Location Search</h1>
                 <Search setSearchOpen={props.setSearchOpen} />
                 <button
