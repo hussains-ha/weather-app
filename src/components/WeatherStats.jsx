@@ -62,6 +62,11 @@ function WeatherStats(props) {
           ? props.general.snow["1h"]
           : 0}
       </p>
+      {props.general !== undefined && props.general.clouds !== undefined ? (
+        <p> Cloud Coverage: {props.general.clouds.all}%</p>
+      ) : (
+        <p>Cloud Coverage: 0%</p>
+      )}
       <p className="caption">In Inches</p>
     </div>
   );
@@ -75,6 +80,11 @@ function WeatherStats(props) {
         alt={`${props.weatherDesc}`}
       ></img>
       <p>{titleCase(props.weatherDesc)}</p>
+      {props.general !== undefined && props.general.clouds !== undefined ? (
+        <p> Cloud Coverage: {props.general.clouds.all}%</p>
+      ) : (
+        <p>Cloud Coverage: 0%</p>
+      )}
     </div>
   );
   const mist = (
@@ -86,6 +96,28 @@ function WeatherStats(props) {
         alt={`${props.weatherDesc}`}
       ></img>
       <p>{titleCase(props.weatherDesc)}</p>
+      {props.general !== undefined && props.general.clouds !== undefined ? (
+        <p> Cloud Coverage: {props.general.clouds.all}%</p>
+      ) : (
+        <p>Cloud Coverage: 0%</p>
+      )}
+    </div>
+  );
+
+  const thunderstorm = (
+    <div className="weather-stat" id={props.type}>
+      <h3>Precipitation</h3>
+      <img
+        src="/cloud.bolt.fill.svg"
+        className="icon-img"
+        alt={`${props.weatherDesc}`}
+      ></img>
+      <p>{titleCase(props.weatherDesc)}</p>
+      {props.general !== undefined && props.general.clouds !== undefined ? (
+        <p> Cloud Coverage: {props.general.clouds.all}%</p>
+      ) : (
+        <p>Cloud Coverage: 0%</p>
+      )}
     </div>
   );
 
@@ -109,8 +141,14 @@ function WeatherStats(props) {
       return snow;
     } else if (props.weather === "Clouds") {
       return cloudy;
-    } else if (props.weather === "Mist" || props.weather === "Fog" || props.weather === "Smoke") {
+    } else if (
+      props.weather === "Mist" ||
+      props.weather === "Fog" ||
+      props.weather === "Smoke"
+    ) {
       return mist;
+    } else if (props.weather === "Thunderstorm") {
+      return thunderstorm;
     } else {
       return (
         <div className="weather-stat" id={props.type}>
@@ -123,6 +161,11 @@ function WeatherStats(props) {
           <p>Moderate Rain</p>
           <p>{props.precipitation}</p>
           <p className="caption">In Inches</p>
+          {props.general !== undefined && props.general.clouds !== undefined ? (
+            <p> Cloud Coverage: {props.general.clouds.all}%</p>
+          ) : (
+            <p>Cloud Coverage: 0%</p>
+          )}
         </div>
       );
     }

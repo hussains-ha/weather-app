@@ -20,18 +20,18 @@ function Search(props) {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("data is received", data);
-        if(data[0].display_name !== document.querySelector("h2").textContent){
-        navigate("/app", {
-          state: {
-            data: {
-              location: data[0].display_name,
-              lat: data[0].lat,
-              lon: data[0].lon,
+        if (data[0].display_name !== document.querySelector("h2").textContent) {
+          navigate("/app", {
+            state: {
+              data: {
+                location: data[0].display_name,
+                lat: data[0].lat,
+                lon: data[0].lon,
+              },
             },
-          },
-        });}
-        if (window.location.href.includes("/app")) {
+          });
+        }
+        if (window.location.href.includes("/app") && props.setSearchOpen) {
           props.setSearchOpen(false);
         }
       });

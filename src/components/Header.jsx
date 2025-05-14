@@ -1,6 +1,10 @@
 import "./styles/Header.css";
+import { useLocation } from "react-router-dom";
 
 function Header(props) {
+  const location = useLocation();
+  const isAppPage = location.pathname.includes("/app");
+
   return (
     <header>
       <nav>
@@ -15,15 +19,19 @@ function Header(props) {
               <a href="/app">Home</a>
             </li>
             <li>
-              <a
-                href=""
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.setSearchOpen(!props.isSearchOpen);
-                }}
-              >
-                Search
-              </a>
+              {isAppPage ? (
+                <a
+                  href=""
+                  onClick={(e) => {
+                    e.preventDefault();
+                    props.setSearchOpen(true);
+                  }}
+                >
+                  Search
+                </a>
+              ) : (
+                <a href="/">Search</a>
+              )}
             </li>
             <li>
               <a href="/wip">Settings</a>

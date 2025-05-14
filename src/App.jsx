@@ -12,10 +12,15 @@ function App() {
 
   return (
     <>
-      <Header setSearchOpen={setSearchOpen} isSearchOpen={isSearchOpen}/>
+      <Header setSearchOpen={setSearchOpen} isSearchOpen={isSearchOpen} />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="/app" element={<Home isSearchOpen={isSearchOpen} setSearchOpen={setSearchOpen}/>} />
+        <Route
+          path="/app"
+          element={
+            <Home isSearchOpen={isSearchOpen} setSearchOpen={setSearchOpen} />
+          }
+        />
         <Route path="/wip" element={<Wip />} />
         <Route path="*" element={<Welcome />} />
       </Routes>
