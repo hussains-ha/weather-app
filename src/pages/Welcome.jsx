@@ -1,12 +1,12 @@
 import Search from "../components/Search";
 
-function Welcome() {
+function Welcome(props) {
   return (
     <>
       <div className="site-content">
         <h1>weather</h1>
         <h2>Enter A Location</h2>
-        <Search />
+        <Search setLoadingState={props.setLoadingState}/>
       </div>
     </>
   );

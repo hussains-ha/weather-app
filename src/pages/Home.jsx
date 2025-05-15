@@ -23,6 +23,7 @@ function Home(props) {
       );
       const data = await response.json();
       setWeatherData(data);
+      props.setLoadingState("success");
     }
     fetchWeather();
   }, [location]);
@@ -32,7 +33,9 @@ function Home(props) {
     return;
   }
 
-  if (weatherData.weather !== undefined) {
+console.log(props.loadingState); 
+
+  if (props.loadingState === "success" || props.loadingState === "idle") {
     return (
       <>
         <div className={`site-content ${props.isSearchOpen ? "blur" : ""}`} onClick={props.isSearchOpen ? () => props.setSearchOpen(false) : null}>
@@ -40,7 +43,7 @@ function Home(props) {
             {props.isSearchOpen && (
               <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
                 <h1>Location Search</h1>
-                <Search setSearchOpen={props.setSearchOpen} />
+                <Search setSearchOpen={props.setSearchOpen} loadingState={props.loadingState} setLoadingState={props.setLoadingState}/>
                 <button
                   onClick={() => {
                     props.setSearchOpen(false);

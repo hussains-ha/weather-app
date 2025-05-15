@@ -6,7 +6,7 @@ function Header(props) {
   const isAppPage = location.pathname.includes("/app");
 
   return (
-    <header>
+    <header className={props.loadingState === "loading" ? "loading" : "loaded"}>
       <nav>
         <div id="inner-nav">
           <ul>
