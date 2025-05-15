@@ -34,3 +34,13 @@ header nav #right-nav {
 #header-logo {
   font-family: "Bumbbled";
 }
+
+#right-nav li {
+  padding: 7px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+#right-nav li:hover {
+  background-color: rgba(82, 70, 70, 0.25);
+}
