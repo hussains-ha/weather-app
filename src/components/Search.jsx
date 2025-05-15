@@ -1,14 +1,17 @@
 import "./styles/search.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 const geocodeApiKey = import.meta.env.VITE_GEOCODING_API_KEY;
 
 function Search(props) {
   const [location, setlocation] = useState("");
   const navigate = useNavigate();
+  const loc = useLocation();
+  const isAppPage = loc.pathname.includes("/app");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.setLoadingState("loading");
 
     if (!location) {
       console.log("Please enter a location");
@@ -20,6 +23,9 @@ function Search(props) {
     )
       .then((res) => res.json())
       .then((data) => {
+        if (isAppPage && props.setSearchOpen) {
+          props.setSearchOpen(false);
+        }
         if (data[0].display_name !== document.querySelector("h2").textContent) {
           navigate("/app", {
             state: {
@@ -29,10 +35,12 @@ function Search(props) {
                 lon: data[0].lon,
               },
             },
+          }).catch((error) => {
+            console.error("Error:", error);
+            props.setLoadingState("error");
           });
-        }
-        if (window.location.href.includes("/app") && props.setSearchOpen) {
-          props.setSearchOpen(false);
+        } else {
+          props.setLoadingState("success");
         }
       });
   };
