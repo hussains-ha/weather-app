@@ -20,7 +20,7 @@
 
 .page-content {
   position: relative;
-  transition: filter 0.3s ease; 
+  transition: filter 0.3s ease;
 }
 
 .overlay {
@@ -66,8 +66,8 @@
 }
 
 .overlay-content button:hover {
-  color: rgba(0, 255, 255, .75);
-  cursor: pointer; 
+  color: rgba(0, 255, 255, 0.75);
+  cursor: pointer;
 }
 
 .overlay-content h1 {

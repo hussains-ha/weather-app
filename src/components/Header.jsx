@@ -1,5 +1,5 @@
 import "./styles/Header.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function Header(props) {
   const location = useLocation();
@@ -19,12 +19,12 @@ function Header(props) {
         <div id="inner-nav">
           <ul>
             <li id="header-logo">
-              <a href="/">weather</a>
+              <Link to="/">weather</Link>
             </li>
           </ul>
           <ul id="right-nav">
             <li>
-              <a href="/app">Home</a>
+              <Link to="/app">Home</Link>
             </li>
             <li>
               {isAppPage ? (
@@ -38,11 +38,11 @@ function Header(props) {
                   Search
                 </a>
               ) : (
-                <a href="/">Search</a>
+                <Link to="/">Search</Link>
               )}
             </li>
             <li>
-              <a href="/wip">Settings</a>
+              <Link to="/wip">Settings</Link>
             </li>
           </ul>
         </div>

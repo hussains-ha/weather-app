@@ -1,50 +1,44 @@
 import "./styles/Home.css";
 import Stats from "../components/WeatherStats";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
 import Search from "../components/Search";
 
-const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-
 function Home(props) {
-  const location = useLocation();
-  const [weatherData, setWeatherData] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!location.state) {
+    console.log("Weather Data: ", props.weatherData);
+    if (props.loadingState === "Success" && Object.keys(props.weatherData).length === 0) {
       navigate("/");
-      return;
     }
+  }, [props.weatherData, props.loadingState, navigate]);
 
-    async function fetchWeather() {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${location.state.data.lat}&lon=${location.state.data.lon}&appid=${VITE_WEATHER_API_KEY}&units=imperial`
-      );
-      const data = await response.json();
-      setWeatherData(data);
-      props.setLoadingState("success");
-    }
-    fetchWeather();
-  }, [location]);
-
-  if (!location.state) {
-    navigate("/");
-    return;
-  }
-
-console.log(props.loadingState); 
-
-  if (props.loadingState === "success" || props.loadingState === "idle") {
-    console.log(weatherData)
+  if (
+    Object.keys(props.weatherData).length !== 0 &&
+    (props.loadingState === "Success" || props.loadingState === "idle")
+  ) {
     return (
       <>
-        <div className={`site-content ${props.isSearchOpen ? "blur" : ""}`} onClick={props.isSearchOpen ? () => props.setSearchOpen(false) : null}>
-          <div className={`overlay ${props.isSearchOpen ? "show" : ""}`} >
+        <div
+          className={`site-content ${props.isSearchOpen ? "blur" : ""}`}
+          onClick={props.isSearchOpen ? () => props.setSearchOpen(false) : null}
+        >
+          <div className={`overlay ${props.isSearchOpen ? "show" : ""}`}>
             {props.isSearchOpen && (
-              <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+              <div
+                className="overlay-content"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <h1>Location Search</h1>
-                <Search setSearchOpen={props.setSearchOpen} loadingState={props.loadingState} setLoadingState={props.setLoadingState}/>
+                <Search
+                  setSearchOpen={props.setSearchOpen}
+                  loadingState={props.loadingState}
+                  setLoadingState={props.setLoadingState}
+                  weatherData={props.weatherData}
+                  setWeatherData={props.setWeatherData}
+                  setLocationName={props.setLocationName}
+                />
                 <button
                   onClick={() => {
                     props.setSearchOpen(false);
@@ -56,50 +50,51 @@ console.log(props.loadingState);
             )}
           </div>
           <h1>
-            <a href="/">weather</a>
+            <Link to="/">weather</Link>
           </h1>
-          <h2>{location.state.data.location}</h2>
+          <h2>{props.locationName}</h2>
 
           <div className="weather-stats">
             <Stats
               type="temperature"
-              temp={weatherData.main?.temp}
-              low={weatherData.main?.temp_min}
-              high={weatherData.main?.temp_max}
-              like={weatherData.main?.feels_like}
+              temp={props.weatherData.main?.temp}
+              low={props.weatherData.main?.temp_min}
+              high={props.weatherData.main?.temp_max}
+              like={props.weatherData.main?.feels_like}
             />
             <Stats
               type="precipitation"
-              precipitation={weatherData.rain?.["1h"]}
-              weather={weatherData.weather[0]?.main}
-              weatherDesc={weatherData.weather[0]?.description}
-              general={weatherData}
+              precipitation={props.weatherData.rain?.["1h"]}
+              weather={props.weatherData.weather[0]?.main}
+              weatherDesc={props.weatherData.weather[0]?.description}
+              general={props.weatherData}
             />
-            <Stats type="humidity" humidity={weatherData.main?.humidity} />
+            <Stats
+              type="humidity"
+              humidity={props.weatherData.main?.humidity}
+            />
             <Stats
               type="wind"
-              deg={weatherData.wind?.deg}
-              gust={weatherData.wind?.gust}
-              speed={weatherData.wind?.speed}
+              deg={props.weatherData.wind?.deg}
+              gust={props.weatherData.wind?.gust}
+              speed={props.weatherData.wind?.speed}
             />
             <Stats
               type="sun"
-              sunrise={weatherData.sys?.sunrise}
-              sunset={weatherData.sys?.sunset}
-              timezone={weatherData.timezone}
+              sunrise={props.weatherData.sys?.sunrise}
+              sunset={props.weatherData.sys?.sunset}
+              timezone={props.weatherData.timezone}
             />
-            <Stats type="pressure" pressure={weatherData.main?.pressure} />
+            <Stats
+              type="pressure"
+              pressure={props.weatherData.main?.pressure}
+            />
           </div>
         </div>
       </>
     );
   } else {
-    return (
-      <>
-        <h2>Loading...</h2>
-        <p>If stuck loading, refresh or check internet connection</p>
-      </>
-    );
+    navigate("/");
   }
 }
 

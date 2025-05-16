@@ -206,6 +206,7 @@ function WeatherStats(props) {
         <h3>Air Pressure</h3>
         <h2 className="icon">{props.pressure}</h2>
         <p className="caption">In hPa</p>
+        <p className="caption">Sea level is at 1013 hPa</p>
       </div>
     );
   } else {

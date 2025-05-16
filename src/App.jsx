@@ -12,17 +12,43 @@ function App() {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [loadingState, setLoadingState] = useState("idle");
   const [weatherData, setWeatherData] = useState({});
+  const [locationName, setLocationName] = useState("");
 
   return (
     <>
-      <Header setSearchOpen={setSearchOpen} isSearchOpen={isSearchOpen} loadingState={loadingState}/>
+      <Header
+        setSearchOpen={setSearchOpen}
+        isSearchOpen={isSearchOpen}
+        loadingState={loadingState}
+      />
       <Background />
       <Routes>
-        <Route path="/" element={<Welcome setLoadingState={setLoadingState} loadingState={loadingState}/>} />
+        <Route
+          path="/"
+          element={
+            <Welcome
+              setLoadingState={setLoadingState}
+              loadingState={loadingState}
+              weatherData={weatherData}
+              setWeatherData={setWeatherData}
+              locationName={locationName}
+              setLocationName={setLocationName}
+            />
+          }
+        />
         <Route
           path="/app"
           element={
-            <Home isSearchOpen={isSearchOpen} setSearchOpen={setSearchOpen} loadingState={loadingState} setLoadingState={setLoadingState}/>
+            <Home
+              isSearchOpen={isSearchOpen}
+              setSearchOpen={setSearchOpen}
+              loadingState={loadingState}
+              setLoadingState={setLoadingState}
+              weatherData={weatherData}
+              setWeatherData={setWeatherData}
+              locationName={locationName}
+              setLocationName={setLocationName}
+            />
           }
         />
         <Route path="/wip" element={<Wip />} />

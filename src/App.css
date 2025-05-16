@@ -66,14 +66,14 @@ p {
   overflow: hidden;
 }
 
-.circle-background .circle{
-  position: absolute; 
+.circle-background .circle {
+  position: absolute;
   width: 100px;
   height: 100px;
   border-radius: 50%;
 }
 
-@keyframes float0 { 
+@keyframes float0 {
   0% {
     transform: translateY(0);
   }
@@ -85,7 +85,7 @@ p {
   }
 }
 
-@keyframes float1 { 
+@keyframes float1 {
   0% {
     transform: translateY(0);
   }

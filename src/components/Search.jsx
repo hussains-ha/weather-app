@@ -1,7 +1,9 @@
 import "./styles/search.css";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
 const geocodeApiKey = import.meta.env.VITE_GEOCODING_API_KEY;
+const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 function Search(props) {
   const [location, setlocation] = useState("");
@@ -9,44 +11,49 @@ function Search(props) {
   const loc = useLocation();
   const isAppPage = loc.pathname.includes("/app");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.setLoadingState("loading");
-
+  async function fetchGeoData() {
     if (!location) {
       console.log("Please enter a location");
       return;
     }
-
-    fetch(
+    const response = await fetch(
       `https://geocode.maps.co/search?q=${location}}&api_key=${geocodeApiKey}`
-    )
-      .then((res) => res.json())
+    );
+    const data = await response.json();
+    return data;
+  }
+
+  async function fetchWeather(data) {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${data.lat}&lon=${data.lon}&appid=${VITE_WEATHER_API_KEY}&units=imperial`
+    );
+    const d = await response.json();
+    props.setWeatherData(d);
+    props.setLocationName(data.display_name);
+    props.setLoadingState("Success");
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.setLoadingState("loading");
+
+    if (isAppPage && props.setSearchOpen) {
+      props.setSearchOpen(false);
+    }
+
+    fetchGeoData()
       .then((data) => {
-        if (isAppPage && props.setSearchOpen) {
-          props.setSearchOpen(false);
+        if (data.length === 0) {
+          props.setLoadingState("Client Error");
+          return;
         }
-        if (data[0].display_name !== document.querySelector("h2").textContent) {
-          navigate("/app", {
-            state: {
-              data: {
-                location: data[0].display_name,
-                lat: data[0].lat,
-                lon: data[0].lon,
-              },
-            },
-          });
-        } else {
-          props.setLoadingState("success");
-        }
+        const locationData = data[0];
+        fetchWeather(locationData);
+        navigate("/app");
       })
-      .catch((e) => {
-        // props.setLoadingState("error");
-        if (e instanceof TypeError && e.message.includes("Failed to fetch")) {
-          console.log("Network error: ", e);
-          props.setLoadingState("Network Error");
-          console.log(props.loadingState);
-        }
+      .catch((error) => {
+        console.error("Error fetching weather data:", error);
+        props.setLoadingState("Network Error");
       });
   };
 
