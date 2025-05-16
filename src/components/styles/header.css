@@ -1,11 +1,12 @@
 header {
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: #00000026;
   transition: box-shadow 0.5s ease;
 }
 
 .loaded {
   box-shadow: 0px 3px 8px rgba(255, 45, 253, 0.75);
+  /* animation: pulsateGlow 6s ease-in-out infinite; */
 }
 
 .loading {
@@ -52,10 +53,20 @@ header nav #right-nav {
   padding: 7px;
   border-radius: 12px;
   transition: background-color 0.3s ease;
-  transition: color 0.13s ease;
+  transition: color 0.3s ease;
 }
 
 #right-nav li:hover {
   background-color: rgba(82, 70, 70, 0.25);
   color: rgba(0, 255, 255, 0.75);
+}
+
+
+@keyframes pulsateGlow {
+  0%, 100% {
+    box-shadow: 0px 3px 8px rgba(255, 45, 253, 0.75);
+  }
+  50% {
+    box-shadow: 0px 3px 16px rgb(255, 74, 252); 
+  }
 }

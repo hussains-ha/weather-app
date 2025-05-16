@@ -9,7 +9,7 @@ function Home(props) {
 
   useEffect(() => {
     console.log("Weather Data: ", props.weatherData);
-    if (props.loadingState === "Success" && Object.keys(props.weatherData).length === 0) {
+    if ((props.loadingState === "Success" || props.loadingState === "idle") && Object.keys(props.weatherData).length === 0) {
       navigate("/");
     }
   }, [props.weatherData, props.loadingState, navigate]);

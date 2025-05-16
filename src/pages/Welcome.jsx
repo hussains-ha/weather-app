@@ -5,7 +5,7 @@ function Welcome(props) {
     <>
       <div className="site-content">
         <h1>weather</h1>
-        <h2>Enter A Location</h2>
+        <h2>Fast and Free Weather Data </h2>
         <Search
           setLoadingState={props.setLoadingState}
           loadingState={props.loadingState}
