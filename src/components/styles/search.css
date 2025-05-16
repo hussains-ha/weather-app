@@ -15,3 +15,8 @@ input::placeholder {
     font-size: 10vh;
     font-family: 'Outfit', 'Roboto', 'Arial', sans-serif;
 }
+
+#error { 
+    margin-top: 5px;
+    color: rgb(218, 47, 47)
+}

@@ -36,6 +36,7 @@ function Home(props) {
 console.log(props.loadingState); 
 
   if (props.loadingState === "success" || props.loadingState === "idle") {
+    console.log(weatherData)
     return (
       <>
         <div className={`site-content ${props.isSearchOpen ? "blur" : ""}`} onClick={props.isSearchOpen ? () => props.setSearchOpen(false) : null}>
@@ -70,7 +71,7 @@ console.log(props.loadingState);
             <Stats
               type="precipitation"
               precipitation={weatherData.rain?.["1h"]}
-              weather={weatherData.weather[0].main}
+              weather={weatherData.weather[0]?.main}
               weatherDesc={weatherData.weather[0]?.description}
               general={weatherData}
             />

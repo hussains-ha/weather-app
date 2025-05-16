@@ -35,12 +35,17 @@ function Search(props) {
                 lon: data[0].lon,
               },
             },
-          }).catch((error) => {
-            console.error("Error:", error);
-            props.setLoadingState("error");
           });
         } else {
           props.setLoadingState("success");
+        }
+      })
+      .catch((e) => {
+        // props.setLoadingState("error");
+        if (e instanceof TypeError && e.message.includes("Failed to fetch")) {
+          console.log("Network error: ", e);
+          props.setLoadingState("Network Error");
+          console.log(props.loadingState);
         }
       });
   };
@@ -53,6 +58,23 @@ function Search(props) {
         placeholder="Enter Location"
         onChange={(e) => setlocation(e.target.value)}
       ></input>
+
+      {props.loadingState === "Network Error" && (
+        <h3 id="error">Please check your internet connection and retry.</h3>
+      )}
+
+      {props.loadingState === "Server Error" && (
+        <h3 id="error">
+          Our servers are overloaded. Please try again momentarily.
+        </h3>
+      )}
+
+      {props.loadingState === "Client Error" && (
+        <h3 id="error">
+          There was a problem with your request. Please check your input and try
+          again.
+        </h3>
+      )}
     </form>
   );
 }
