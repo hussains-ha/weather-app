@@ -9,14 +9,14 @@ function Home(props) {
 
   useEffect(() => {
     console.log("Weather Data: ", props.weatherData);
-    if ((props.loadingState === "Success" || props.loadingState === "idle") && Object.keys(props.weatherData).length === 0) {
+    if ((props.loadingState === "Success" || props.loadingState === "Idle") && Object.keys(props.weatherData).length === 0) {
       navigate("/");
     }
   }, [props.weatherData, props.loadingState, navigate]);
 
   if (
     Object.keys(props.weatherData).length !== 0 &&
-    (props.loadingState === "Success" || props.loadingState === "idle")
+    (props.loadingState === "Success" || props.loadingState === "Idle")
   ) {
     return (
       <>

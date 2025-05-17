@@ -10,7 +10,7 @@ import Wip from "./pages/Wip";
 
 function App() {
   const [isSearchOpen, setSearchOpen] = useState(false);
-  const [loadingState, setLoadingState] = useState("idle");
+  const [loadingState, setLoadingState] = useState("Idle");
   const [weatherData, setWeatherData] = useState({});
   const [locationName, setLocationName] = useState("");
 

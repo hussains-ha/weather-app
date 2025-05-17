@@ -14,6 +14,7 @@ function Search(props) {
   async function fetchGeoData() {
     if (!location) {
       console.log("Please enter a location");
+      props.setLoadingState("Null Client Error");
       return;
     }
     const response = await fetch(
@@ -49,11 +50,15 @@ function Search(props) {
         }
         const locationData = data[0];
         fetchWeather(locationData);
+        setlocation("");
         navigate("/app");
       })
       .catch((error) => {
         console.error("Error fetching weather data:", error);
         props.setLoadingState("Network Error");
+        if (!location) {
+          props.setLoadingState("Null Client Error");
+        }
       });
   };
 
@@ -68,6 +73,10 @@ function Search(props) {
 
       {props.loadingState === "Network Error" && (
         <h3 id="error">Please check your internet connection and retry.</h3>
+      )}
+
+      {props.loadingState === "Null Client Error" && (
+        <h3 id="error">Please enter a location.</h3>
       )}
 
       {props.loadingState === "Server Error" && (
