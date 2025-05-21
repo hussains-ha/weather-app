@@ -7,6 +7,7 @@ function Background() {
   const rotation = [0, 54.7];
 
   const [positions, setPositions] = useState([]);
+
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
 
@@ -29,14 +30,14 @@ function Background() {
         <div
           key={i}
           className="circle"
+          id={`circle-${i}`}
           style={{
             top: pos.top,
             left: pos.left,
             width: 892,
             height: 618,
-            transform: rotation[i % rotation.length] + "deg",
+            transform: `rotate(${rotation[i % rotation.length]}deg)`,
             filter: "blur(250px)",
-            animationDuration: pos.duration,
             animation: `float${i % 2} ${pos.duration} linear infinite`,
             background: colors[i % colors.length],
           }}

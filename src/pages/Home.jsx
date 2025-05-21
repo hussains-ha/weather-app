@@ -8,7 +8,6 @@ function Home(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Weather Data: ", props.weatherData);
     if ((props.loadingState === "Success" || props.loadingState === "Idle") && Object.keys(props.weatherData).length === 0) {
       navigate("/");
     }

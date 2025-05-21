@@ -13,7 +13,6 @@ function Search(props) {
 
   async function fetchGeoData() {
     if (!location) {
-      console.log("Please enter a location");
       props.setLoadingState("Null Client Error");
       return;
     }
@@ -55,10 +54,12 @@ function Search(props) {
       })
       .catch((error) => {
         console.error("Error fetching weather data:", error);
-        props.setLoadingState("Network Error");
         if (!location) {
           props.setLoadingState("Null Client Error");
+        } else {
+          props.setLoadingState("Network Error");
         }
+        console.log(props.loadingState);
       });
   };
 
