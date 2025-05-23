@@ -23,7 +23,7 @@ function WeatherStats(props) {
         <p>Gust 0</p>
         <p>Speed {props.speed}</p>
       </div>
-      <p className="caption">In MPH</p>
+      <p className="caption">{props.units === "Metric" ? "In KPH" : "In MPH"}</p>
     </div>
   );
 
@@ -36,7 +36,7 @@ function WeatherStats(props) {
         <p>Gust {props.gust}</p>
         <p>Speed {props.speed}</p>
       </div>
-      <p className="caption">In MPH</p>
+      <p className="caption">{props.units === "Metric" ? "In KPH" : "In MPH"}</p>
     </div>
   );
 
@@ -131,7 +131,7 @@ function WeatherStats(props) {
           <p>High {props.high | 0}</p>
         </div>
         <p>Feels Like {props.like | 0}</p>
-        <p className="caption">In Fahrenheit</p>
+        <p className="caption">{props.units === "Metric" ? "In Celsius" : "In Fahrenheit"}</p>
       </div>
     );
   } else if (props.type === "precipitation") {

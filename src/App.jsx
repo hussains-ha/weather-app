@@ -14,6 +14,10 @@ function App() {
   const [weatherData, setWeatherData] = useState({});
   const [locationName, setLocationName] = useState("");
   const [isSettingsOpen, setSettingsOpen] = useState(false);
+  const [units, setUnits] = useState(() => { 
+    const savedUnits = localStorage.getItem("unitPreference");
+    return savedUnits ? JSON.parse(savedUnits) : "Imperial";
+  });
 
   return (
     <>
@@ -38,6 +42,8 @@ function App() {
               setLocationName={setLocationName}
               isSettingsOpen={isSettingsOpen}
               setSettingsOpen={setSettingsOpen}
+              units={units}
+              setUnits={setUnits}
             />
           }
         />
@@ -55,6 +61,8 @@ function App() {
               setLocationName={setLocationName}
               isSettingsOpen={isSettingsOpen}
               setSettingsOpen={setSettingsOpen}
+              units={units}
+              setUnits={setUnits}
             />
           }
         />

@@ -12,6 +12,8 @@ function Welcome(props) {
           weatherData={props.weatherData}
           setWeatherData={props.setWeatherData}
           setLocationName={props.setLocationName}
+          units={props.units}
+          setUnits={props.setUnits}
         />
       </div>
     </>

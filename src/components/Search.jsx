@@ -17,7 +17,7 @@ function Search(props) {
       return;
     }
     const response = await fetch(
-      `https://geocode.maps.co/search?q=${location}}&api_key=${geocodeApiKey}`
+      `https://geocode.maps.co/search?q=${location}&api_key=${geocodeApiKey}`
     );
     const data = await response.json();
     return data;
@@ -25,7 +25,7 @@ function Search(props) {
 
   async function fetchWeather(data) {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${data.lat}&lon=${data.lon}&appid=${VITE_WEATHER_API_KEY}&units=imperial`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${data.lat}&lon=${data.lon}&appid=${VITE_WEATHER_API_KEY}&units=${props.units}`
     );
     const d = await response.json();
     props.setWeatherData(d);

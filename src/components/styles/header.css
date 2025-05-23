@@ -47,6 +47,7 @@ header nav #right-nav {
 
 #header-logo {
   font-family: "Bumbbled";
+  transition: text-shadow 0.3s ease;
 }
 
 #right-nav li {
@@ -61,12 +62,16 @@ header nav #right-nav {
   color: rgba(0, 255, 255, 0.75);
 }
 
+#header-logo:hover {
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.75);
+}
 
 @keyframes pulsateGlow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0px 3px 8px rgba(255, 45, 253, 0.75);
   }
   50% {
-    box-shadow: 0px 3px 16px rgb(255, 74, 252); 
+    box-shadow: 0px 3px 16px rgb(255, 74, 252);
   }
 }
