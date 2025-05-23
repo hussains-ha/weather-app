@@ -13,12 +13,15 @@ function App() {
   const [loadingState, setLoadingState] = useState("Idle");
   const [weatherData, setWeatherData] = useState({});
   const [locationName, setLocationName] = useState("");
+  const [isSettingsOpen, setSettingsOpen] = useState(false);
 
   return (
     <>
       <Header
         setSearchOpen={setSearchOpen}
         isSearchOpen={isSearchOpen}
+        setSettingsOpen={setSettingsOpen}
+        isSettingsOpen={isSettingsOpen}
         loadingState={loadingState}
       />
       <Background />
@@ -33,6 +36,8 @@ function App() {
               setWeatherData={setWeatherData}
               locationName={locationName}
               setLocationName={setLocationName}
+              isSettingsOpen={isSettingsOpen}
+              setSettingsOpen={setSettingsOpen}
             />
           }
         />
@@ -48,6 +53,8 @@ function App() {
               setWeatherData={setWeatherData}
               locationName={locationName}
               setLocationName={setLocationName}
+              isSettingsOpen={isSettingsOpen}
+              setSettingsOpen={setSettingsOpen}
             />
           }
         />

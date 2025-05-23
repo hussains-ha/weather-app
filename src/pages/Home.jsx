@@ -8,7 +8,10 @@ function Home(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if ((props.loadingState === "Success" || props.loadingState === "Idle") && Object.keys(props.weatherData).length === 0) {
+    if (
+      (props.loadingState === "Success" || props.loadingState === "Idle") &&
+      Object.keys(props.weatherData).length === 0
+    ) {
       navigate("/");
     }
   }, [props.weatherData, props.loadingState, navigate]);
@@ -20,13 +23,25 @@ function Home(props) {
     return (
       <>
         <div
-          className={`site-content ${props.isSearchOpen ? "blur" : ""}`}
-          onClick={props.isSearchOpen ? () => props.setSearchOpen(false) : null}
+          className={`site-content ${
+            props.isSearchOpen ? "blur" : props.isSettingsOpen ? "blur" : ""
+          }`}
+          onClick={
+            props.isSearchOpen
+              ? () => props.setSearchOpen(false)
+              : props.isSettingsOpen
+              ? () => props.setSettingsOpen(false)
+              : null
+          }
         >
-          <div className={`overlay ${props.isSearchOpen ? "show" : ""}`}>
+          <div
+            className={`overlay ${
+              props.isSearchOpen ? "show" : props.isSettingsOpen ? "show" : ""
+            }`}
+          >
             {props.isSearchOpen && (
               <div
-                className="overlay-content"
+                className="search-overlay-content"
                 onClick={(e) => e.stopPropagation()}
               >
                 <h1>Location Search</h1>
@@ -42,6 +57,34 @@ function Home(props) {
                   onClick={() => {
                     props.setSearchOpen(false);
                   }}
+                  id="close"
+                >
+                  Close
+                </button>
+              </div>
+            )}
+
+            {props.isSettingsOpen && (
+              <div
+                className="settings-overlay-content"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h1>Sett   ings</h1>
+
+                <button>
+                  <h3>Units: Imperial</h3>
+                </button>
+                <button>
+                  <h3>Set Time Zone</h3>
+                </button>
+                <button>
+                  <h3>Set Default Location</h3>
+                </button>
+                <button
+                  onClick={() => {
+                    props.setSettingsOpen(false);
+                  }}
+                  id="close"
                 >
                   Close
                 </button>

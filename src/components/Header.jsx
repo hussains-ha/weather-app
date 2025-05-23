@@ -42,7 +42,15 @@ function Header(props) {
               )}
             </li>
             <li>
-              <Link to="/wip">Settings</Link>
+              <a
+                href=""
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.setSettingsOpen(true);
+                }}
+              >
+                Settings
+              </a>
             </li>
           </ul>
         </div>

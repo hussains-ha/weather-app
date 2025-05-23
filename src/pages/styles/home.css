@@ -46,17 +46,29 @@
   z-index: 10;
 }
 
-.overlay-content {
+.search-overlay-content,
+.settings-overlay-content {
   width: 1200px;
-
   text-align: center;
   padding: 20px;
   background-color: rgba(41, 45, 45, 0.19);
   border-radius: 12px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.overlay-content button {
+.search-overlay-content button,
+.settings-overlay-content button {
+  all: unset;
+  display: inline-block;
+  /* font-size: 3em; */
+  margin: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  transition: color 0.3s ease;
+}
+
+.search-overlay-content #close,
+.settings-overlay-content #close {
   all: unset;
   display: inline-block;
   font-size: 3em;
@@ -66,11 +78,35 @@
   transition: color 0.3s ease;
 }
 
-.overlay-content button:hover {
+.search-overlay-content #close:hover,
+.settings-overlay-content #close:hover {
   color: rgba(0, 255, 255, 0.75);
   cursor: pointer;
 }
 
-.overlay-content h1 {
+.search-overlay-content h1,
+.settings-overlay-content h1 {
   margin: 20px;
+}
+
+.settings-overlay-content h1 {
+  white-space: pre;
+}
+
+.settings-overlay-content {
+  display: grid;
+  place-items: center;
+}
+
+.settings-overlay-content button {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.33);
+}
+
+.settings-overlay-content button h3 {
+  transition: color 0.3s ease;
+}
+
+.settings-overlay-content button h3:hover {
+  color: rgba(0, 255, 255, 0.75);
 }
