@@ -1,34 +1,7 @@
 import Search from "../components/Search";
 import "./styles/Welcome.css";
-import { useState } from "react";
-
-const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 function Welcome(props) {
-  const [buttonClicks, setButtonClicks] = useState(0);
-
-  async function fetchWeather(data) {
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${VITE_WEATHER_API_KEY}&units=${props.units}`
-      );
-      const d = await response.json();
-      if (!d) {
-        props.setLoadingState("Client Error");
-        return;
-      }
-      props.setWeatherData(d);
-      props.setLoadingState("Success");
-    } catch (error) {
-      console.error("Error fetching weather data:", error);
-      if (!props.locationName) {
-        props.setLoadingState("Null Client Error");
-      } else {
-        props.setLoadingState("Network Error");
-      }
-    }
-  }
-
   const settingsWindow = (
     <div
       className="settings-overlay-content"
@@ -45,7 +18,6 @@ function Welcome(props) {
             props.setUnits("Metric");
             localStorage.setItem("unitPreference", JSON.stringify("Metric"));
           }
-          setButtonClicks((prev) => prev + 1);
           console.log(props.weatherData);
         }}
       >
@@ -60,18 +32,6 @@ function Welcome(props) {
       <button
         onClick={() => {
           props.setSettingsOpen(false);
-          if (buttonClicks % 2 === 1) {
-            props.setLoadingState("loading");
-            fetchWeather(props.weatherData).catch((error) => {
-              console.error("Error fetching weather data:", error);
-              if (!props.locationName) {
-                props.setLoadingState("Null Client Error");
-              } else {
-                props.setLoadingState("Network Error");
-              }
-            });
-          }
-          setButtonClicks(0);
         }}
         id="close"
       >

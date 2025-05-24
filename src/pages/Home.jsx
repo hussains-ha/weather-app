@@ -1,11 +1,14 @@
 import "./styles/Home.css";
 import Stats from "../components/WeatherStats";
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Search from "../components/Search";
+
+const VITE_WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 function Home(props) {
   const navigate = useNavigate();
+  const [buttonClicks, setButtonClicks] = useState(0);
 
   const searchWindow = (
     <div
@@ -50,6 +53,7 @@ function Home(props) {
             props.setUnits("Metric");
             localStorage.setItem("unitPreference", JSON.stringify("Metric"));
           }
+          setButtonClicks((prev) => prev + 1);
           console.log(props.weatherData);
         }}
       >
@@ -64,6 +68,18 @@ function Home(props) {
       <button
         onClick={() => {
           props.setSettingsOpen(false);
+          if (buttonClicks % 2 === 1) {
+            props.setLoadingState("loading");
+            fetchWeather(props.weatherData).catch((error) => {
+              console.error("Error fetching weather data:", error);
+              if (!props.locationName) {
+                props.setLoadingState("Null Client Error");
+              } else {
+                props.setLoadingState("Network Error");
+              }
+            });
+          }
+          setButtonClicks(0);
         }}
         id="close"
       >
@@ -71,6 +87,28 @@ function Home(props) {
       </button>
     </div>
   );
+
+  async function fetchWeather(data) {
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${VITE_WEATHER_API_KEY}&units=${props.units}`
+      );
+      const d = await response.json();
+      if (!d) {
+        props.setLoadingState("Client Error");
+        return;
+      }
+      props.setWeatherData(d);
+      props.setLoadingState("Success");
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+      if (!props.locationName) {
+        props.setLoadingState("Null Client Error");
+      } else {
+        props.setLoadingState("Network Error");
+      }
+    }
+  }
 
   useEffect(() => {
     if (
