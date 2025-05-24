@@ -10,6 +10,84 @@ function Home(props) {
   const navigate = useNavigate();
   const [buttonClicks, setButtonClicks] = useState(0);
 
+  const searchWindow = (
+    <div
+      className="search-overlay-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h1>Location Search</h1>
+      <Search
+        setSearchOpen={props.setSearchOpen}
+        loadingState={props.loadingState}
+        setLoadingState={props.setLoadingState}
+        weatherData={props.weatherData}
+        setWeatherData={props.setWeatherData}
+        setLocationName={props.setLocationName}
+        units={props.units}
+        setUnits={props.setUnits}
+      />
+      <button
+        onClick={() => {
+          props.setSearchOpen(false);
+        }}
+        id="close"
+      >
+        Close
+      </button>
+    </div>
+  );
+
+  const settingsWindow = (
+    <div
+      className="settings-overlay-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h1>Sett   ings</h1>
+
+      <button
+        onClick={() => {
+          if (props.units === "Metric") {
+            props.setUnits("Imperial");
+            localStorage.setItem("unitPreference", JSON.stringify("Imperial"));
+          } else {
+            props.setUnits("Metric");
+            localStorage.setItem("unitPreference", JSON.stringify("Metric"));
+          }
+          setButtonClicks((prev) => prev + 1);
+          console.log(props.weatherData);
+        }}
+      >
+        <h3>{`Units: ${props.units}`}</h3>
+      </button>
+      <button>
+        <h3>Set Time Zone</h3>
+      </button>
+      <button>
+        <h3>Set Default Location</h3>
+      </button>
+      <button
+        onClick={() => {
+          props.setSettingsOpen(false);
+          if (buttonClicks % 2 === 1) {
+            props.setLoadingState("loading");
+            fetchWeather(props.weatherData).catch((error) => {
+              console.error("Error fetching weather data:", error);
+              if (!props.locationName) {
+                props.setLoadingState("Null Client Error");
+              } else {
+                props.setLoadingState("Network Error");
+              }
+            });
+          }
+          setButtonClicks(0);
+        }}
+        id="close"
+      >
+        Close
+      </button>
+    </div>
+  );
+
   async function fetchWeather(data) {
     try {
       const response = await fetch(
@@ -64,89 +142,9 @@ function Home(props) {
               props.isSearchOpen ? "show" : props.isSettingsOpen ? "show" : ""
             }`}
           >
-            {props.isSearchOpen && (
-              <div
-                className="search-overlay-content"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h1>Location Search</h1>
-                <Search
-                  setSearchOpen={props.setSearchOpen}
-                  loadingState={props.loadingState}
-                  setLoadingState={props.setLoadingState}
-                  weatherData={props.weatherData}
-                  setWeatherData={props.setWeatherData}
-                  setLocationName={props.setLocationName}
-                  units={props.units}
-                  setUnits={props.setUnits}
-                />
-                <button
-                  onClick={() => {
-                    props.setSearchOpen(false);
-                  }}
-                  id="close"
-                >
-                  Close
-                </button>
-              </div>
-            )}
+            {props.isSearchOpen && searchWindow}
 
-            {props.isSettingsOpen && (
-              <div
-                className="settings-overlay-content"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h1>Sett   ings</h1>
-
-                <button
-                  onClick={() => {
-                    if (props.units === "Metric") {
-                      props.setUnits("Imperial");
-                      localStorage.setItem(
-                        "unitPreference",
-                        JSON.stringify("Imperial")
-                      );
-                    } else {
-                      props.setUnits("Metric");
-                      localStorage.setItem(
-                        "unitPreference",
-                        JSON.stringify("Metric")
-                      );
-                    }
-                    setButtonClicks((prev) => prev + 1);
-                    console.log(props.weatherData);
-                  }}
-                >
-                  <h3>{`Units: ${props.units}`}</h3>
-                </button>
-                <button>
-                  <h3>Set Time Zone</h3>
-                </button>
-                <button>
-                  <h3>Set Default Location</h3>
-                </button>
-                <button
-                  onClick={() => {
-                    props.setSettingsOpen(false);
-                    if (buttonClicks % 2 === 1) {
-                      props.setLoadingState("loading");
-                      fetchWeather(props.weatherData).catch((error) => {
-                        console.error("Error fetching weather data:", error);
-                        if (!props.locationName) {
-                          props.setLoadingState("Null Client Error");
-                        } else {
-                          props.setLoadingState("Network Error");
-                        }
-                      });
-                    }
-                    setButtonClicks(0);
-                  }}
-                  id="close"
-                >
-                  Close
-                </button>
-              </div>
-            )}
+            {props.isSettingsOpen && settingsWindow}
           </div>
           <h1>
             <Link to="/">weather</Link>
@@ -214,89 +212,9 @@ function Home(props) {
               props.isSearchOpen ? "show" : props.isSettingsOpen ? "show" : ""
             }`}
           >
-            {props.isSearchOpen && (
-              <div
-                className="search-overlay-content"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h1>Location Search</h1>
-                <Search
-                  setSearchOpen={props.setSearchOpen}
-                  loadingState={props.loadingState}
-                  setLoadingState={props.setLoadingState}
-                  weatherData={props.weatherData}
-                  setWeatherData={props.setWeatherData}
-                  setLocationName={props.setLocationName}
-                  units={props.units}
-                  setUnits={props.setUnits}
-                />
-                <button
-                  onClick={() => {
-                    props.setSearchOpen(false);
-                  }}
-                  id="close"
-                >
-                  Close
-                </button>
-              </div>
-            )}
+            {props.isSearchOpen && searchWindow}
 
-            {props.isSettingsOpen && (
-              <div
-                className="settings-overlay-content"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h1>Sett   ings</h1>
-
-                <button
-                  onClick={() => {
-                    if (props.units === "Metric") {
-                      props.setUnits("Imperial");
-                      localStorage.setItem(
-                        "unitPreference",
-                        JSON.stringify("Imperial")
-                      );
-                    } else {
-                      props.setUnits("Metric");
-                      localStorage.setItem(
-                        "unitPreference",
-                        JSON.stringify("Metric")
-                      );
-                    }
-                    setButtonClicks((prev) => prev + 1);
-                    console.log(props.weatherData);
-                  }}
-                >
-                  <h3>{`Units: ${props.units}`}</h3>
-                </button>
-                <button>
-                  <h3>Set Time Zone</h3>
-                </button>
-                <button>
-                  <h3>Set Default Location</h3>
-                </button>
-                <button
-                  onClick={() => {
-                    props.setSettingsOpen(false);
-                    if (buttonClicks % 2 === 1) {
-                      props.setLoadingState("loading");
-                      fetchWeather(props.weatherData).catch((error) => {
-                        console.error("Error fetching weather data:", error);
-                        if (!props.locationName) {
-                          props.setLoadingState("Null Client Error");
-                        } else {
-                          props.setLoadingState("Network Error");
-                        }
-                      });
-                    }
-                    setButtonClicks(0);
-                  }}
-                  id="close"
-                >
-                  Close
-                </button>
-              </div>
-            )}
+            {props.isSettingsOpen && settingsWindow}
           </div>
 
           <h1>
