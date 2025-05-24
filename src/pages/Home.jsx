@@ -197,7 +197,7 @@ function Home(props) {
   } else if (props.loadingState !== "Sucess" || props.loadingState !== "Idle") {
     return (
       <>
-              <div
+        <div
           className={`site-content ${
             props.isSearchOpen ? "blur" : props.isSettingsOpen ? "blur" : ""
           }`}
@@ -299,19 +299,23 @@ function Home(props) {
             )}
           </div>
 
-        {props.loadingState === "Network Error" && (
-          <h3 id="error">Please check your internet connection and retry.</h3>
-        )}
+          <h1>
+            <Link to="/">weather</Link>
+          </h1>
 
-        {props.loadingState === "Null Client Error" && (
-          <h3 id="error">Please enter a location.</h3>
-        )}
+          {props.loadingState === "Network Error" && (
+            <h3 id="error">Please check your internet connection and retry.</h3>
+          )}
 
-        {props.loadingState === "Server Error" && (
-          <h3 id="error">
-            Our servers are overloaded. Please try again momentarily.
-          </h3>
-        )}
+          {props.loadingState === "Null Client Error" && (
+            <h3 id="error">Please enter a location.</h3>
+          )}
+
+          {props.loadingState === "Server Error" && (
+            <h3 id="error">
+              Our servers are overloaded. Please try again momentarily.
+            </h3>
+          )}
         </div>
       </>
     );

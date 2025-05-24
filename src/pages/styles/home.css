@@ -107,15 +107,12 @@
   transition: color 0.3s ease;
 }
 
-.settings-overlay-content button h3:hover {
-  color: rgba(0, 255, 255, 0.75);
-}
-
 .settings-overlay-content button {
   transition: background-color 0.3s ease;
 }
 
 .settings-overlay-content button:hover {
   background-color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 255, 255, 0.75);
   cursor: pointer;
 }
